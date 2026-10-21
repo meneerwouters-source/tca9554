@@ -1,4 +1,6 @@
 name: "tca9554"
+domain: "tca9554"
+type: "support"
 version: "1.0.0"
 files:
   - "tca9554.h"
