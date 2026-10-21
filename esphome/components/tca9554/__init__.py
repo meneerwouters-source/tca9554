@@ -12,5 +12,5 @@ CONFIG_SCHEMA = cv.Schema({
 
 async def to_code(config):
     var = cg.new_Pvariable(config[cv.GenerateID()])
-    await cg.register_component(var)
-    await i2c.register_i2c_device(var, config)
+    await cg.register_component(var, {})
+    await i2c.register_i2c_device(var, {"address": config["address"]})
