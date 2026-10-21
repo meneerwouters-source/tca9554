@@ -1,0 +1,5 @@
+name: "tca9554"
+version: "1.0.0"
+files:
+  - "tca9554.h"
+  - "tca9554.cpp"
