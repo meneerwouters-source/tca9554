@@ -5,13 +5,11 @@ from esphome.components import i2c
 tca9554_ns = cg.esphome_ns.namespace("tca9554")
 TCA9554 = tca9554_ns.class_("TCA9554", cg.Component, i2c.I2CDevice)
 
-CONFIG_SCHEMA = cv.Schema({
+CONFIG_SCHEMA = i2c.i2c_device_schema().extend({
     cv.GenerateID(): cv.declare_id(TCA9554),
-    cv.GenerateID("i2c_id"): cv.use_id(i2c.I2CComponent),
-    cv.Required("address"): cv.i2c_address,
 })
 
 async def to_code(config):
     var = cg.new_Pvariable(config[cv.GenerateID()])
-    await cg.register_component(var, {})
+    await cg.register_component(var)
     await i2c.register_i2c_device(var, config)
