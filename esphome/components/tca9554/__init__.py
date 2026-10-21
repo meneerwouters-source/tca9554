@@ -10,7 +10,7 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required("address"): cv.i2c_address,
 })
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[cv.GenerateID()])
-    cg.register_component(var, config)
-    cg.register_i2c_device(var, config)
+    await cg.register_component(var)
+    await i2c.register_i2c_device(var, config)
