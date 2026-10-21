@@ -1,0 +1,145 @@
+esphome:
+  name: waveshare_s3_8di8ro
+
+external_components:
+  - source: github://meneerwouters-source/tca9554
+    refresh: always
+
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+logger:
+api:
+ota:
+  password: !secret ota_password
+  platform: esphome
+
+# Status LED
+light:
+  - platform: status_led
+    pin: 48
+    name: "Status LED"
+
+# Buzzer
+output:
+  - platform: ledc
+    pin: 47
+    id: buzzer_out
+
+# I2C bus
+i2c:
+  sda: 42
+  scl: 41
+  scan: true
+
+# TCA9554 driver
+tca9554:
+  id: relay_expander
+  address: 0x20
+
+# Relais via TCA9554
+switch:
+  - platform: template
+    name: "Relay 1"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(0, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(0, false);
+
+  - platform: template
+    name: "Relay 2"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(1, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(1, false);
+
+  - platform: template
+    name: "Relay 3"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(2, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(2, false);
+
+  - platform: template
+    name: "Relay 4"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(3, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(3, false);
+
+  - platform: template
+    name: "Relay 5"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(4, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(4, false);
+
+  - platform: template
+    name: "Relay 6"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(5, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(5, false);
+
+  - platform: template
+    name: "Relay 7"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(6, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(6, false);
+
+  - platform: template
+    name: "Relay 8"
+    turn_on_action:
+      - lambda: |-
+          relay_expander->set_pin(7, true);
+    turn_off_action:
+      - lambda: |-
+          relay_expander->set_pin(7, false);
+
+# Digitale ingangen (GPIO4–GPIO11)
+binary_sensor:
+  - platform: gpio
+    pin: 4
+    name: "Input 1"
+  - platform: gpio
+    pin: 5
+    name: "Input 2"
+  - platform: gpio
+    pin: 6
+    name: "Input 3"
+  - platform: gpio
+    pin: 7
+    name: "Input 4"
+  - platform: gpio
+    pin: 8
+    name: "Input 5"
+  - platform: gpio
+    pin: 9
+    name: "Input 6"
+  - platform: gpio
+    pin: 10
+    name: "Input 7"
+  - platform: gpio
+    pin: 11
+    name: "Input 8"
