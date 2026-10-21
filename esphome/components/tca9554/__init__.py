@@ -7,10 +7,11 @@ TCA9554 = tca9554_ns.class_("TCA9554", cg.Component, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(TCA9554),
+    cv.GenerateID("i2c_id"): cv.use_id(i2c.I2CComponent),
     cv.Required("address"): cv.i2c_address,
 })
 
 async def to_code(config):
     var = cg.new_Pvariable(config[cv.GenerateID()])
     await cg.register_component(var, {})
-    await i2c.register_i2c_device(var, {"address": config["address"]})
+    await i2c.register_i2c_device(var, config)
